@@ -45,6 +45,7 @@
     <Compile Include="NoteDetailViewModel.cs" />
     <Compile Include="NoteEditViewModel.cs" />
     <Compile Include="NoteListItemViewModel.cs" />
+    <Compile Include="ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

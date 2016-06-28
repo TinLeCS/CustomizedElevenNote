@@ -33,6 +33,7 @@ namespace ElevenNote.Data
         }
 
         public DbSet<NoteEntity> Notes { get; set; }
+        public DbSet<ProfileEntity> Profiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
