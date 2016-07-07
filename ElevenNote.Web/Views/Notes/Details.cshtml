@@ -1,63 +1,47 @@
 ﻿@model ElevenNote.Models.NoteDetailViewModel
-
 @{
     ViewBag.Title = "Details";
 }
-
 <h2>Details</h2>
-
 <div>
-    <h4>NoteDetailViewModel</h4>
+    <h4>Note Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.NoteId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NoteId)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Title)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Content)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Content)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.IsStarred)
         </dt>
-
         <dd>
-            @Html.CheckBox("IsStarred", Model.IsStarred ?? false, new { @disabled = "disabled" })
+           @Html.DisplayFor(model => model.IsStarred.Value)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Priority)
         <dt>
             @Html.DisplayNameFor(model => model.CreatedUtc)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.CreatedUtc)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.ModifiedUtc)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.ModifiedUtc)
         </dd>
-
     </dl>
 </div>
 <p>

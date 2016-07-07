@@ -32,6 +32,7 @@ namespace ElevenNote.Services
                                     NoteId = e.NoteId,
                                     Title = e.Title,
                                     IsStarred = e.IsStarred,
+                                    Priority = e.Priority,
                                     CreatedUtc = e.CreatedUtc,
                                     ModifiedUtc = e.ModifiedUtc
                                 })
@@ -60,10 +61,12 @@ namespace ElevenNote.Services
                     Title = entity.Title,
                     Content = entity.Content,
                     IsStarred = entity.IsStarred,
+                    Priority = entity.Priority,
                     CreatedUtc = entity.CreatedUtc,
                     ModifiedUtc = entity.ModifiedUtc
                 };
         }
+
 
         public bool CreateNote(NoteCreateViewModel vm)
         {
@@ -76,7 +79,8 @@ namespace ElevenNote.Services
                         Title = vm.Title,
                         Content = vm.Content,
                         IsStarred = false,
-                        CreatedUtc = DateTimeOffset.UtcNow
+                        CreatedUtc = DateTimeOffset.UtcNow,
+                        Priority = vm.Priority
                     };
 
                 ctx.Notes.Add(entity);
@@ -100,6 +104,7 @@ namespace ElevenNote.Services
                 entity.Content = vm.Content;
                 entity.IsStarred = vm.IsStarred;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
+                entity.Priority = vm.Priority;
 
                 return ctx.SaveChanges() == 1;
             }

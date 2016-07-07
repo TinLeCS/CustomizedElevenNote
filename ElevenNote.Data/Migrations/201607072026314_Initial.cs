@@ -18,6 +18,7 @@ namespace ElevenNote.Data.Migrations
                         IsStarred = c.Boolean(nullable: false),
                         CreatedUtc = c.DateTimeOffset(nullable: false, precision: 7),
                         ModifiedUtc = c.DateTimeOffset(precision: 7),
+                        Priority = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.NoteId);
             

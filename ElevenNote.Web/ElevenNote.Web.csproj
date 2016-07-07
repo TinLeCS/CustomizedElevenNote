@@ -196,6 +196,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ElevenNote.mdf" />
+    <Content Include="App_Data\ElevenNote_log.ldf">
+      <DependentUpon>ElevenNote.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -262,9 +266,7 @@
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

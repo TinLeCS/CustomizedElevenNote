@@ -23,6 +23,8 @@ namespace ElevenNote.Models
 
         [Display(Name = "Starred")]
         public bool? IsStarred { get; set; }
+        [Required]
+        public string Priority { get; set; }
 
         public override string ToString() => $"[{NoteId}] {Title}";
     }

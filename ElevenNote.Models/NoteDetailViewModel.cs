@@ -14,7 +14,7 @@ namespace ElevenNote.Models
         public bool? IsStarred { get; set; }
         public DateTimeOffset CreatedUtc { get; set; }
         public DateTimeOffset? ModifiedUtc { get; set; }
-
+        public string Priority { get; set; }
         public override string ToString() => $"[{NoteId}] {Title}";
     }
 }

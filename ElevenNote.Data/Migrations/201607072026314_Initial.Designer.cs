@@ -13,7 +13,7 @@ namespace ElevenNote.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201606282302255_Initial"; }
+            get { return "201607072026314_Initial"; }
         }
         
         string IMigrationMetadata.Source

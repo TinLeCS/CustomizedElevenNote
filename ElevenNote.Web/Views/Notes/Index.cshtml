@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<ElevenNote.Models.NoteListItemViewModel>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Eleven Note";
 }
-
-<h2>Index</h2>
-
+<h2>Eleven Note</h2>
 <p class="text-right">
     @Html.ActionLink("Create New", "Create", "Notes", new { @class = "btn btn-primary" })
 </p>
@@ -19,43 +16,88 @@
             @Html.DisplayNameFor(model => model.IsStarred)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.CreatedUtc)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ModifiedUtc)
         </th>
     </tr>
+    @{
+        var recentID = Session["RecentId"] != null ? (int)Session["RecentId"] : 0;
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <div class="btn-group btn-group-xs">
-                <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Edit", "Edit", new { id = item.NoteId })</li>
-                    <li>@Html.ActionLink("Delete", "Delete", new { id = item.NoteId })</li>
-                </ul>
-            </div>
-        </td>
-        <td>
-            @Html.ActionLink(item.Title, "Details", new { id = item.NoteId })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsStarred, new { Id = item.NoteId })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedUtc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedUtc)
-        </td>
-    </tr>
-}
+        var topItem = Model.SingleOrDefault(e => e.NoteId == recentID);
 
+        if (topItem != null)
+        {
+            <tr class="@topItem.Priority">
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Edit", "Edit", new { id = topItem.NoteId })</li>
+                            <li>@Html.ActionLink("Delete", "Delete", new { id = topItem.NoteId })</li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = topItem.NoteId })" class=@topItem.Priority toggle_data="tooltip" title="This is the most recent note you viewed!">@topItem.Title</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => topItem.IsStarred, new { Id = topItem.NoteId })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => topItem.Priority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => topItem.CreatedUtc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => topItem.ModifiedUtc)
+                </td>
+            </tr>
+        }
+
+        foreach (var item in Model)
+        {
+            if (item.NoteId != recentID)
+            {
+                <tr class="@item.Priority">
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Edit", "Edit", new { id = item.NoteId })</li>
+                                <li>@Html.ActionLink("Delete", "Delete", new { id = item.NoteId })</li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.Title, "Details", new { id = item.NoteId }, new { @class = @item.Priority })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsStarred, new { Id = item.NoteId })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Priority)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedUtc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifiedUtc)
+                    </td>
+                </tr>
+            }
+        }
+    }
 </table>
-
 @section scripts {
     <script language="javascript" type="text/javascript">
         $(document).ready(function () {
@@ -74,6 +116,7 @@
                     .done(function (r) { target.removeClass(); target.addClass("glyphicon " + (starSet ? "glyphicon-star-empty" : "glyphicon-star")); })
                     .fail(function (r) { alert("Failed to change star status"); });
                 });
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 }
