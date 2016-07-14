@@ -29,6 +29,10 @@ namespace ElevenNote.Data
 
         public DateTimeOffset? ModifiedUtc { get; set; }
 
+        [Required]
+        [DefaultValue("NA")]
+        public string Priority { get; set; }
+
         public override string ToString() => $"[{NoteId}] {Title}";
     }
 }

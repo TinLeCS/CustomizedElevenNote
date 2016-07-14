@@ -18,6 +18,9 @@ namespace ElevenNote.Models
         [MaxLength(8000)]
         public string Content { get; set; }
 
+        [Required]
+        public string Priority { get; set; }
+
         public override string ToString() => $"[New] {Title}";
     }
 }

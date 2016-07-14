@@ -70,7 +70,8 @@ namespace ElevenNote.Web.Controllers.WebApi
                     NoteId = detail.NoteId,
                     Title = detail.Title,
                     Content = detail.Content,
-                    IsStarred = state
+                    IsStarred = state,
+                    Priority = detail.Priority
                 };
 
             return _svc.Value.UpdateNote(note);

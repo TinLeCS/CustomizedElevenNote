@@ -1,22 +1,53 @@
 ﻿@using Microsoft.AspNet.Identity
+@using ElevenNote.Services;
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
-    }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @{
+                    var email = User.Identity.GetUserName();
+                    var _svc = new ProfileService(email);
+                    var display = _svc.GetProfile().FirstName == null ? email : _svc.GetProfile().FirstName;
+
+                    DateTimeOffset current = DateTimeOffset.UtcNow.LocalDateTime;
+
+                    TimeSpan morning = new TimeSpan(5, 0, 0);
+                    TimeSpan afternoon = new TimeSpan(12, 0, 0);
+                    TimeSpan evening = new TimeSpan(17, 0, 0);
+                    TimeSpan night = new TimeSpan(22, 0, 0);
+                    string period = "";
+
+                    if (TimeSpan.Compare(current.TimeOfDay, morning) == 0 || TimeSpan.Compare(current.TimeOfDay, morning) == 1 && TimeSpan.Compare(current.TimeOfDay, afternoon) == -1)
+                    {
+                        period = "morning";
+                    }
+                    else if (TimeSpan.Compare(current.TimeOfDay, afternoon) == 0 || TimeSpan.Compare(current.TimeOfDay, afternoon) == 1 && TimeSpan.Compare(current.TimeOfDay, evening) == -1)
+                    {
+                        period = "afternoon";
+                    }
+                    else if (TimeSpan.Compare(current.TimeOfDay, evening) == 0 || TimeSpan.Compare(current.TimeOfDay, evening) == 1 && TimeSpan.Compare(current.TimeOfDay, night) == -1)
+                    {
+                        period = "evening";
+                    }
+                    else
+                    {
+                        period = "night";
+                    }
+                }
+                @Html.ActionLink("Good " + period + ", " + display + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+                        }
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        </ul>
+                    }

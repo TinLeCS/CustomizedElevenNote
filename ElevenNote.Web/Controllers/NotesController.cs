@@ -27,6 +27,7 @@ namespace ElevenNote.Web.Controllers
 
         public ActionResult Index()
         {
+            //Session["RecentId"] = 0;
             var notes = _svc.Value.GetNotes();
 
             return View(notes);
@@ -45,7 +46,7 @@ namespace ElevenNote.Web.Controllers
         {
             if (!ModelState.IsValid) return View(vm);
 
-            if(!_svc.Value.CreateNote(vm))
+            if (!_svc.Value.CreateNote(vm))
             {
                 ModelState.AddModelError("", "Unable to create note");
                 return View(vm);
@@ -54,9 +55,15 @@ namespace ElevenNote.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult FAQ()
+        {
+            return View();
+        }
+
         public ActionResult Details(int id)
         {
             var note = _svc.Value.GetNoteById(id);
+            Session["RecentId"] = id;
 
             return View(note);
         }
@@ -70,7 +77,8 @@ namespace ElevenNote.Web.Controllers
                     NoteId = detail.NoteId,
                     Title = detail.Title,
                     Content = detail.Content,
-                    IsStarred = detail.IsStarred
+                    IsStarred = detail.IsStarred,
+                    Priority = detail.Priority
                 };
 
             return View(note);
@@ -82,7 +90,7 @@ namespace ElevenNote.Web.Controllers
         {
             if (!ModelState.IsValid) return View(vm);
 
-            if(!_svc.Value.UpdateNote(vm))
+            if (!_svc.Value.UpdateNote(vm))
             {
                 ModelState.AddModelError("", "Unable to update note");
                 return View(vm);

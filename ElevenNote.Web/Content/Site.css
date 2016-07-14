@@ -3,6 +3,26 @@
     padding-bottom: 20px;
 }
 
+a, a:visited {
+    color: inherit;
+}
+
+.High{
+    color: red;
+}
+
+.Medium{
+    color: royalblue;
+}
+
+.Low{
+    color: forestgreen;
+}
+
+.NA{
+    color: black;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
