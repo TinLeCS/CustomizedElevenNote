@@ -200,6 +200,10 @@
     <Content Include="App_Data\ElevenNote_log.ldf">
       <DependentUpon>ElevenNote.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\1.png" />
+    <Content Include="Content\2.png" />
+    <Content Include="Content\3.png" />
+    <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
